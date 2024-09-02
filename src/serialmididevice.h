@@ -35,7 +35,7 @@ class CMiniDexed;
 class CSerialMIDIDevice : public CMIDIDevice
 {
 public:
-	CSerialMIDIDevice (CMiniDexed *pSynthesizer, CInterruptSystem *pInterrupt, CConfig *pConfig, CUserInterface *pUI);
+	CSerialMIDIDevice (CMiniDexed *pSynthesizer, CInterruptSystem *pInterrupt, CConfig *pConfig);
 	~CSerialMIDIDevice (void);
 
 	boolean Initialize (void);

@@ -28,7 +28,6 @@
 #include <unordered_map>
 #include <circle/types.h>
 #include <circle/spinlock.h>
-#include "userinterface.h"
 
 #define MAX_DX7_SYSEX_LENGTH 4104
 #define MAX_MIDI_MESSAGE MAX_DX7_SYSEX_LENGTH
@@ -38,34 +37,18 @@ class CMiniDexed;
 class CMIDIDevice
 {
 public:
-	enum TChannel
-	{
-		Channels = 16,
-		OmniMode = Channels,
-		Disabled,
-		ChannelUnknown
-	};
-
 public:
-	CMIDIDevice (CMiniDexed *pSynthesizer, CConfig *pConfig, CUserInterface *pUI);
+	CMIDIDevice (CMiniDexed *pSynthesizer, CConfig *pConfig);
 	virtual ~CMIDIDevice (void);
 
-	void SetChannel (u8 ucChannel, unsigned nTG);
-	u8 GetChannel (unsigned nTG) const;
-
 	virtual void Send (const u8 *pMessage, size_t nLength, unsigned nCable = 0) {}
-	virtual void SendSystemExclusiveVoice(uint8_t nVoice, const unsigned nCable, uint8_t nTG);
 
 protected:
 	void MIDIMessageHandler (const u8 *pMessage, size_t nLength, unsigned nCable = 0);
 	void AddDevice (const char *pDeviceName);
-	void HandleSystemExclusive(const uint8_t* pMessage, const size_t nLength, const unsigned nCable, const uint8_t nTG);
 private:
 	CMiniDexed *m_pSynthesizer;
 	CConfig *m_pConfig;
-	CUserInterface *m_pUI;
-
-	u8 m_ChannelMap[CConfig::AllToneGenerators];
 
 	std::string m_DeviceName;
 
