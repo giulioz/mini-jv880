@@ -20,49 +20,57 @@
 #ifndef _minidexed_h
 #define _minidexed_h
 
+#define ARM_ALLOW_MULTI_CORE
+
 #include "config.h"
+#include "emulator/mcu.h"
 #include "midikeyboard.h"
 #include "pckeyboard.h"
-#include "serialmididevice.h"
 #include "perftimer.h"
+#include "serialmididevice.h"
+#include <circle/gpiomanager.h>
+#include <circle/i2cmaster.h>
+#include <circle/interrupt.h>
+#include <circle/multicore.h>
+#include <circle/screen.h>
+#include <circle/sound/soundbasedevice.h>
+#include <circle/spimaster.h>
+#include <circle/spinlock.h>
+#include <circle/types.h>
 #include <fatfs/ff.h>
 #include <stdint.h>
 #include <string>
-#include <circle/types.h>
-#include <circle/interrupt.h>
-#include <circle/gpiomanager.h>
-#include <circle/i2cmaster.h>
-#include <circle/spimaster.h>
-#include <circle/multicore.h>
-#include <circle/sound/soundbasedevice.h>
-#include <circle/spinlock.h>
 
-class CMiniDexed
-{
+class CMiniDexed : public CMultiCoreSupport {
 public:
-	CMiniDexed (CConfig *pConfig, CInterruptSystem *pInterrupt,
-		    CGPIOManager *pGPIOManager, CI2CMaster *pI2CMaster, FATFS *pFileSystem);
+  CMiniDexed(CConfig *pConfig, CInterruptSystem *pInterrupt,
+             CGPIOManager *pGPIOManager, CI2CMaster *pI2CMaster,
+             FATFS *pFileSystem, CScreenDevice *mScreenUnbuffered);
 
-	bool Initialize (void);
-	void Process (bool bPlugAndPlayUpdated);
+  bool Initialize(void);
+  void Process(bool bPlugAndPlayUpdated);
+
+  virtual void Run(unsigned nCore) override;
+
+  MCU mcu;
 
 private:
-	void ProcessSound (void);
+  CConfig *m_pConfig;
+  FATFS *m_pFileSystem;
 
-private:
-	CConfig *m_pConfig;
+  CMIDIKeyboard *m_pMIDIKeyboard[CConfig::MaxUSBMIDIDevices];
+  CPCKeyboard m_PCKeyboard;
+  CSerialMIDIDevice m_SerialMIDI;
+  bool m_bUseSerial;
 
-	CMIDIKeyboard *m_pMIDIKeyboard[CConfig::MaxUSBMIDIDevices];
-	CPCKeyboard m_PCKeyboard;
-	CSerialMIDIDevice m_SerialMIDI;
-	bool m_bUseSerial;
+  CSoundBaseDevice *m_pSoundDevice;
+  bool m_bChannelsSwapped;
+  unsigned m_nQueueSizeFrames;
 
-	CSoundBaseDevice *m_pSoundDevice;
-	bool m_bChannelsSwapped;
-	unsigned m_nQueueSizeFrames;
+  CPerformanceTimer m_GetChunkTimer;
+  bool m_bProfileEnabled;
 
-	CPerformanceTimer m_GetChunkTimer;
-	bool m_bProfileEnabled;
+  CScreenDevice *m_ScreenUnbuffered;
 };
 
 #endif
