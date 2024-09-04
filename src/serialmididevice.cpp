@@ -32,7 +32,7 @@ LOGMODULE("serialmididevice");
 // 0 corresponds to GP14/GP15 on all RPi versions.
 #define SERIAL_MIDI_DEVICE 0
 
-CSerialMIDIDevice::CSerialMIDIDevice (CMiniDexed *pSynthesizer, CInterruptSystem *pInterrupt, CConfig *pConfig)
+CSerialMIDIDevice::CSerialMIDIDevice (CMiniJV880 *pSynthesizer, CInterruptSystem *pInterrupt, CConfig *pConfig)
 :	CMIDIDevice (pSynthesizer, pConfig),
 	m_pConfig (pConfig),
 	m_Serial (pInterrupt, TRUE, SERIAL_MIDI_DEVICE),

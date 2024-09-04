@@ -23,7 +23,7 @@
 #include "config.h"
 
 CConfig::CConfig (FATFS *pFileSystem)
-:	m_Properties ("minidexed.ini", pFileSystem)
+:	m_Properties ("minijv880.ini", pFileSystem)
 {
 }
 

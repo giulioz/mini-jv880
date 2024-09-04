@@ -68,8 +68,7 @@ jobs:
            mkdir -p sdcard
            cp -r ./circle-stdlib/libs/circle/boot/* sdcard
            rm -rf sdcard/config*.txt sdcard/README sdcard/Makefile sdcard/armstub sdcard/COPYING.linux
-           cp ./src/config.txt ./src/minidexed.ini ./src/*img ./src/performance.ini sdcard/
-           cp ./getsysex.sh sdcard/
+           cp ./src/config.txt ./src/minijv880.ini ./src/*img ./src/performance.ini sdcard/
            echo "usbspeed=full" > sdcard/cmdline.txt
            cd sdcard
            cp ../kernels/* . || true
@@ -79,8 +78,8 @@ jobs:
            git clone https://github.com/Banana71/Soundplantage --depth 1 # depth 1 means only the latest commit
            cp -r ./Soundplantage/performance ./Soundplantage/*.pdf ./sdcard/
            cd sdcard
-           zip -r ../MiniDexed_$GITHUB_RUN_NUMBER_$(date +%Y-%m-%d)-$(git rev-parse --short HEAD).zip *
-           echo "artifactName=MiniDexed_$GITHUB_RUN_NUMBER_$(date +%Y-%m-%d)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+           zip -r ../MiniJV880_$GITHUB_RUN_NUMBER_$(date +%Y-%m-%d)-$(git rev-parse --short HEAD).zip *
+           echo "artifactName=MiniJV880_$GITHUB_RUN_NUMBER_$(date +%Y-%m-%d)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
            cd -
     - uses: actions/upload-artifact@v3
       with:
@@ -90,6 +89,6 @@ jobs:
       if: ${{ github.ref == 'refs/heads/main' }}
       run: |
            set -ex
-           wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-           bash ./upload.sh ./MiniDexed*.zip
+           wget -c https://github.com/giulioz/uploadtool/raw/master/upload.sh
+           bash ./upload.sh ./MiniJV880*.zip
            

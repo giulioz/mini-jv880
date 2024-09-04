@@ -30,12 +30,12 @@
 #include <circle/writebuffer.h>
 #include <circle/types.h>
 
-class CMiniDexed;
+class CMiniJV880;
 
 class CSerialMIDIDevice : public CMIDIDevice
 {
 public:
-	CSerialMIDIDevice (CMiniDexed *pSynthesizer, CInterruptSystem *pInterrupt, CConfig *pConfig);
+	CSerialMIDIDevice (CMiniJV880 *pSynthesizer, CInterruptSystem *pInterrupt, CConfig *pConfig);
 	~CSerialMIDIDevice (void);
 
 	boolean Initialize (void);

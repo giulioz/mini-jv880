@@ -37,7 +37,7 @@ gcc-*
 
 # Build artefacts
 kernel*
-MiniDexed*
+MiniJV880*
 sdcard
 *.zip
 *.img
@@ -47,5 +47,4 @@ sdcard
 *.swo
 
 CMSIS_5/
-Synth_Dexed/
 circle-stdlib/

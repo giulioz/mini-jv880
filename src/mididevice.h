@@ -32,13 +32,13 @@
 #define MAX_DX7_SYSEX_LENGTH 4104
 #define MAX_MIDI_MESSAGE MAX_DX7_SYSEX_LENGTH
 
-class CMiniDexed;
+class CMiniJV880;
 
 class CMIDIDevice
 {
 public:
 public:
-	CMIDIDevice (CMiniDexed *pSynthesizer, CConfig *pConfig);
+	CMIDIDevice (CMiniJV880 *pSynthesizer, CConfig *pConfig);
 	virtual ~CMIDIDevice (void);
 
 	virtual void Send (const u8 *pMessage, size_t nLength, unsigned nCable = 0) {}
@@ -47,7 +47,7 @@ protected:
 	void MIDIMessageHandler (const u8 *pMessage, size_t nLength, unsigned nCable = 0);
 	void AddDevice (const char *pDeviceName);
 private:
-	CMiniDexed *m_pSynthesizer;
+	CMiniJV880 *m_pSynthesizer;
 	CConfig *m_pConfig;
 
 	std::string m_DeviceName;

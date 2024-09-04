@@ -28,7 +28,7 @@
 #include <circle/sysconfig.h>
 #include <string>
 
-class CConfig		// Configuration for MiniDexed
+class CConfig		// Configuration for MiniJV880
 {
 public:
 

@@ -17,8 +17,3 @@ cd -
 cd circle-stdlib/libs/circle-newlib
 #git checkout develop
 cd -
-#
-# Use fixed master branch of Synth_Dexed
-cd Synth_Dexed/
-git checkout c9f5274
-cd -

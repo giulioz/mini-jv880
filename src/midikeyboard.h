@@ -33,7 +33,7 @@
 
 #define USB_SYSEX_BUFFER_SIZE (MAX_DX7_SYSEX_LENGTH+128) // Allow a bit spare to handle unexpected SysEx messages
 
-class CMiniDexed;
+class CMiniJV880;
 
 class CMIDIKeyboard : public CMIDIDevice
 {
@@ -41,7 +41,7 @@ public:
 	static const unsigned MaxInstances = 4;
 
 public:
-	CMIDIKeyboard (CMiniDexed *pSynthesizer, CConfig *pConfig, unsigned nInstance = 0);
+	CMIDIKeyboard (CMiniJV880 *pSynthesizer, CConfig *pConfig, unsigned nInstance = 0);
 	~CMIDIKeyboard (void);
 
 	void Process (boolean bPlugAndPlayUpdated);

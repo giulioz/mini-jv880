@@ -49,7 +49,7 @@ cd ../../../..
 
 cd ..
 
-# Build MiniDexed
+# Build MiniJV880
 cd src
 make clean || true
 make -j

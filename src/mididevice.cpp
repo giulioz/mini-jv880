@@ -23,7 +23,7 @@
 
 #include <circle/logger.h>
 #include "mididevice.h"
-#include "minidexed.h"
+#include "minijv880.h"
 #include "config.h"
 #include <stdio.h>
 #include <assert.h>
@@ -59,7 +59,7 @@ LOGMODULE ("mididevice");
 
 CMIDIDevice::TDeviceMap CMIDIDevice::s_DeviceMap;
 
-CMIDIDevice::CMIDIDevice (CMiniDexed *pSynthesizer, CConfig *pConfig)
+CMIDIDevice::CMIDIDevice (CMiniJV880 *pSynthesizer, CConfig *pConfig)
 :	m_pSynthesizer (pSynthesizer),
 	m_pConfig (pConfig)
 {

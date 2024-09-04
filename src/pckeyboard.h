@@ -26,12 +26,12 @@
 #include <circle/device.h>
 #include <circle/types.h>
 
-class CMiniDexed;
+class CMiniJV880;
 
 class CPCKeyboard : public CMIDIDevice
 {
 public:
-	CPCKeyboard (CMiniDexed *pSynthesizer, CConfig *pConfig);
+	CPCKeyboard (CMiniJV880 *pSynthesizer, CConfig *pConfig);
 	~CPCKeyboard (void);
 
 	void Process (boolean bPlugAndPlayUpdated);
