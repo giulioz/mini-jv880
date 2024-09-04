@@ -27,7 +27,7 @@
 #include <circle/spimaster.h>
 #include <circle/usb/usbcontroller.h>
 #include "config.h"
-#include "minidexed.h"
+#include "minijv880.h"
 
 enum TShutdownMode
 {
@@ -56,7 +56,7 @@ private:
 	CGPIOManager	m_GPIOManager;
 	CI2CMaster	m_I2CMaster;
 	CSPIMaster	*m_pSPIMaster;
-	CMiniDexed	*m_pDexed;
+	CMiniJV880	*m_pJV880;
 	CUSBController *m_pUSB;
 
 	static CKernel *s_pThis;

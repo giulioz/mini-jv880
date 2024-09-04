@@ -29,11 +29,11 @@ LOGMODULE ("kernel");
 CKernel *CKernel::s_pThis = 0;
 
 CKernel::CKernel (void)
-:	CStdlibAppStdio ("minidexed"),
+:	CStdlibAppStdio ("minijv880"),
 	m_Config (&mFileSystem),
 	m_GPIOManager (&mInterrupt),
  	m_I2CMaster (CMachineInfo::Get ()->GetDevice (DeviceI2CMaster), TRUE),
-	m_pDexed (0)
+	m_pJV880 (0)
 {
 	s_pThis = this;
 
@@ -72,10 +72,10 @@ bool CKernel::Initialize (void)
 		return FALSE;
 	}
 	
-	m_pDexed = new CMiniDexed (&m_Config, &mInterrupt, &m_GPIOManager, &m_I2CMaster, &mFileSystem, &mScreenUnbuffered);
-	assert (m_pDexed);
+	m_pJV880 = new CMiniJV880 (&m_Config, &mInterrupt, &m_GPIOManager, &m_I2CMaster, &mFileSystem, &mScreenUnbuffered);
+	assert (m_pJV880);
 
-	if (!m_pDexed->Initialize ())
+	if (!m_pJV880->Initialize ())
 	{
 		return FALSE;
 	}
@@ -85,13 +85,13 @@ bool CKernel::Initialize (void)
 
 CStdlibApp::TShutdownMode CKernel::Run (void)
 {
-	assert (m_pDexed);
+	assert (m_pJV880);
 
 	while (42 == 42)
 	{
 		boolean bUpdated = m_pUSB->UpdatePlugAndPlay ();
 
-		m_pDexed->Process(bUpdated);
+		m_pJV880->Process(bUpdated);
 
 		if (mbScreenAvailable)
 		{
