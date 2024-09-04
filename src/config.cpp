@@ -37,7 +37,6 @@ void CConfig::Load (void)
 	
 	m_SoundDevice = m_Properties.GetString ("SoundDevice", "pwm");
 
-	m_nSampleRate = m_Properties.GetNumber ("SampleRate", 48000);
 	if (m_SoundDevice == "hdmi") {
 		m_nChunkSize = m_Properties.GetNumber ("ChunkSize", 384*6);
 	}
@@ -60,11 +59,6 @@ void CConfig::Load (void)
 const char *CConfig::GetSoundDevice (void) const
 {
 	return m_SoundDevice.c_str ();
-}
-
-unsigned CConfig::GetSampleRate (void) const
-{
-	return m_nSampleRate;
 }
 
 unsigned CConfig::GetChunkSize (void) const

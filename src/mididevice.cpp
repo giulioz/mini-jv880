@@ -70,6 +70,8 @@ CMIDIDevice::~CMIDIDevice (void)
 	m_pSynthesizer = 0;
 }
 
+int pc = 0;
+
 void CMIDIDevice::MIDIMessageHandler (const u8 *pMessage, size_t nLength, unsigned nCable)
 {
 	// The packet contents are just normal MIDI data - see
@@ -143,6 +145,19 @@ void CMIDIDevice::MIDIMessageHandler (const u8 *pMessage, size_t nLength, unsign
 	u8 ucStatus  = pMessage[0];
 	u8 ucChannel = ucStatus & 0x0F;
 	u8 ucType    = ucStatus >> 4;
+
+	if (ucChannel == 0 && ucType == 0x9 && pMessage[1] == 105) {
+		if (pc > 0) pc--;
+		uint8_t msg[2] = {0xC0, pc};
+		m_pSynthesizer->mcu.postMidiSC55(msg, 2);
+	}
+	if (ucChannel == 0 && ucType == 0x9 && pMessage[1] == 106) {
+		pc++;
+		uint8_t msg[2] = {0xC0, pc};
+		m_pSynthesizer->mcu.postMidiSC55(msg, 2);
+	}
+
+	m_pSynthesizer->mcu.postMidiSC55(pMessage, nLength);
 
 	m_MIDISpinLock.Release ();
 }

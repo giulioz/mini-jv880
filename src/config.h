@@ -48,7 +48,6 @@ public:
 	
 	// Sound device
 	const char *GetSoundDevice (void) const;
-	unsigned GetSampleRate (void) const;
 	unsigned GetChunkSize (void) const;
 	unsigned GetDACI2CAddress (void) const;		// 0 for auto probing
 	bool GetChannelsSwapped (void) const;
@@ -62,7 +61,6 @@ private:
 	CPropertiesFatFsFile m_Properties;
 	
 	std::string m_SoundDevice;
-	unsigned m_nSampleRate;
 	unsigned m_nChunkSize;
 	unsigned m_nDACI2CAddress;
 	bool m_bChannelsSwapped;

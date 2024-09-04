@@ -72,7 +72,7 @@ bool CKernel::Initialize (void)
 		return FALSE;
 	}
 	
-	m_pDexed = new CMiniDexed (&m_Config, &mInterrupt, &m_GPIOManager, &m_I2CMaster, &mFileSystem);
+	m_pDexed = new CMiniDexed (&m_Config, &mInterrupt, &m_GPIOManager, &m_I2CMaster, &mFileSystem, &mScreenUnbuffered);
 	assert (m_pDexed);
 
 	if (!m_pDexed->Initialize ())
