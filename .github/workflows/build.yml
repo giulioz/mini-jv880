@@ -89,6 +89,6 @@ jobs:
       if: ${{ github.ref == 'refs/heads/main' }}
       run: |
            set -ex
-           wget -c https://github.com/giulioz/uploadtool/raw/master/upload.sh
+           wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
            bash ./upload.sh ./MiniJV880*.zip
            
