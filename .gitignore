@@ -48,3 +48,6 @@ sdcard
 
 CMSIS_5/
 circle-stdlib/
+
+*.bin
+.DS_Store
