@@ -33,6 +33,7 @@
  */
 #pragma once
 #include <stdint.h>
+#include <circle/spinlock.h>
 
 struct pcm_t {
   uint32_t ram1[32][8];
@@ -75,6 +76,8 @@ struct Pcm {
   uint8_t waverom3[0x100000];
   uint8_t waverom_card[0x200000];
   uint8_t waverom_exp[0x800000];
+
+  CSpinLock pcm_lock;
 
   void PCM_Write(uint32_t address, uint8_t data);
   uint8_t PCM_Read(uint32_t address);

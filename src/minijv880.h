@@ -24,10 +24,6 @@
 
 #include "config.h"
 #include "emulator/mcu.h"
-#include "midikeyboard.h"
-#include "pckeyboard.h"
-#include "perftimer.h"
-#include "serialmididevice.h"
 #include <circle/gpiomanager.h>
 #include <circle/i2cmaster.h>
 #include <circle/interrupt.h>
@@ -37,9 +33,10 @@
 #include <circle/spimaster.h>
 #include <circle/spinlock.h>
 #include <circle/types.h>
+#include <circle/usb/usbkompletekontrol.h>
+#include <circle/usb/usbmidi.h>
 #include <fatfs/ff.h>
 #include <stdint.h>
-#include <string>
 
 class CMiniJV880 : public CMultiCoreSupport {
 public:
@@ -52,25 +49,29 @@ public:
 
   virtual void Run(unsigned nCore) override;
 
+  static void USBMIDIMessageHandler(unsigned nCable, u8 *pPacket,
+                                    unsigned nLength);
+  static void DeviceRemovedHandler(CDevice *pDevice, void *pContext);
+
   MCU mcu;
 
 private:
   CConfig *m_pConfig;
   FATFS *m_pFileSystem;
 
-  CMIDIKeyboard *m_pMIDIKeyboard[CConfig::MaxUSBMIDIDevices];
-  CPCKeyboard m_PCKeyboard;
-  CSerialMIDIDevice m_SerialMIDI;
-  bool m_bUseSerial;
+  CUSBMIDIDevice *volatile m_pMIDIDevice = 0;
+  CUSBKompleteKontrolDevice *volatile m_KompleteKontrol = 0;
+  int lastEncoderPos = 0;
 
   CSoundBaseDevice *m_pSoundDevice;
   bool m_bChannelsSwapped;
   unsigned m_nQueueSizeFrames;
 
-  CPerformanceTimer m_GetChunkTimer;
-  bool m_bProfileEnabled;
-
   CScreenDevice *m_ScreenUnbuffered;
+
+  static CMiniJV880 *s_pThis;
+
+  u8 *screen_buffer;
 };
 
 #endif

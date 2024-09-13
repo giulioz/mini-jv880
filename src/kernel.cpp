@@ -33,7 +33,8 @@ CKernel::CKernel (void)
 	m_Config (&mFileSystem),
 	m_GPIOManager (&mInterrupt),
  	m_I2CMaster (CMachineInfo::Get ()->GetDevice (DeviceI2CMaster), TRUE),
-	m_pJV880 (0)
+	m_pJV880 (0),
+	m_CPUThrottle (CPUSpeedMaximum)
 {
 	s_pThis = this;
 
@@ -87,6 +88,8 @@ CStdlibApp::TShutdownMode CKernel::Run (void)
 {
 	assert (m_pJV880);
 
+	uint16_t cnt = 0;
+
 	while (42 == 42)
 	{
 		boolean bUpdated = m_pUSB->UpdatePlugAndPlay ();
@@ -96,9 +99,14 @@ CStdlibApp::TShutdownMode CKernel::Run (void)
 		if (mbScreenAvailable)
 		{
 			mScreen.Update ();
+
+			cnt++;
+			if ((cnt & 1023) == 1023)
+				LOGNOTE("Temp: %d", m_CPUThrottle.GetTemperature ());
 		}
 
 		m_CPUThrottle.Update ();
+		// m_CPUThrottle.DumpStatus ();
 	}
 
 	return ShutdownHalt;
